@@ -74,31 +74,31 @@ def readWifiStrength():
     while True:
         wifiStrength = int(subprocess.Popen("/sbin/iwconfig wlan0 | grep Link | grep -oE -- '-[0-9]{2}'", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT).stdout.readlines()[0].strip())
 
-        if wifiStrength < -30 and wifiStrength >= -65:
-            if LAST_WIFI_LEVEL != 5:
-                LAST_WIFI_LEVEL = 5
-                print(bcolors.OKGREEN + "Updating wifi icon, level 5" + bcolors.ENDC)
-                copyfile(IMAGEDIR + "/wifi_5.png", DESTDIR + "/wifi.png")
-        elif wifiStrength < -65 and wifiStrength >= -70:
-            if LAST_WIFI_LEVEL != 4:
-                LAST_WIFI_LEVEL = 4
-                print(bcolors.OKGREEN + "Updating wifi icon, level 4" + bcolors.ENDC)
-                copyfile(IMAGEDIR + "/wifi_4.png", DESTDIR + "/wifi.png")
-        elif wifiStrength < -70 and wifiStrength >= -80:
-            if LAST_WIFI_LEVEL != 3:
-                LAST_WIFI_LEVEL = 3
-                print(bcolors.OKGREEN + "Updating wifi icon, level 3" + bcolors.ENDC)
-                copyfile(IMAGEDIR + "/wifi_3.png", DESTDIR + "/wifi.png")
-        elif wifiStrength < -80 and wifiStrength >= -90:
-            if LAST_WIFI_LEVEL != 2:
-                LAST_WIFI_LEVEL = 2
-                print(bcolors.OKGREEN + "Updating wifi icon, level 2" + bcolors.ENDC)
-                copyfile(IMAGEDIR + "/wifi_2.png", DESTDIR + "/wifi.png")
-        elif wifiStrength < -90:
+        if wifiStrength <= -90:
             if LAST_WIFI_LEVEL != 1:
                 LAST_WIFI_LEVEL = 1
                 print(bcolors.OKGREEN + "Updating wifi icon, level 1" + bcolors.ENDC)
                 copyfile(IMAGEDIR + "/wifi_1.png", DESTDIR + "/wifi.png")
+        elif wifiStrength <= -80:
+            if LAST_WIFI_LEVEL != 2:
+                LAST_WIFI_LEVEL = 2
+                print(bcolors.OKGREEN + "Updating wifi icon, level 2" + bcolors.ENDC)
+                copyfile(IMAGEDIR + "/wifi_2.png", DESTDIR + "/wifi.png")
+        elif wifiStrength <= -70:
+            if LAST_WIFI_LEVEL != 3:
+                LAST_WIFI_LEVEL = 3
+                print(bcolors.OKGREEN + "Updating wifi icon, level 3" + bcolors.ENDC)
+                copyfile(IMAGEDIR + "/wifi_3.png", DESTDIR + "/wifi.png")
+        elif wifiStrength <= -65:
+            if LAST_WIFI_LEVEL != 4:
+                LAST_WIFI_LEVEL = 4
+                print(bcolors.OKGREEN + "Updating wifi icon, level 4" + bcolors.ENDC)
+                copyfile(IMAGEDIR + "/wifi_4.png", DESTDIR + "/wifi.png")
+        elif wifiStrength <= -30:
+            if LAST_WIFI_LEVEL != 5:
+                LAST_WIFI_LEVEL = 5
+                print(bcolors.OKGREEN + "Updating wifi icon, level 5" + bcolors.ENDC)
+                copyfile(IMAGEDIR + "/wifi_5.png", DESTDIR + "/wifi.png")
 
         print("Wifi level: %d dBm" % wifiStrength)
         time.sleep(1)
